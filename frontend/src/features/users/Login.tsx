@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { LoginMutation } from '../../types';
+import React, {useState} from 'react';
+import {Link as RouterLink, useNavigate} from 'react-router-dom';
+import {LoginMutation} from '../../types';
 import {
     Alert,
     Avatar,
@@ -14,9 +14,10 @@ import {
     Typography,
 } from '@mui/material';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {selectLoginError, selectLoginLoading} from "./userSlice";
-import {login} from "./userThunk";
+import {googleLogin, login} from "./userThunk";
+import {GoogleLogin} from "@react-oauth/google";
 
 const Login = () => {
     const [state, setState] = useState<LoginMutation>({
@@ -30,8 +31,8 @@ const Login = () => {
     const loading = useAppSelector(selectLoginLoading);
 
     const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = event.target;
-        setState((prevState) => ({ ...prevState, [name]: value }));
+        const {name, value} = event.target;
+        setState((prevState) => ({...prevState, [name]: value}));
     };
     const submitFormHandler = async (event: React.FormEvent) => {
         event.preventDefault();
@@ -41,6 +42,10 @@ const Login = () => {
         } catch {
             //
         }
+    };
+    const googleLoginHandler = async (credential: string) => {
+        await dispatch(googleLogin(credential)).unwrap();
+        navigate('/');
     };
 
     return (
@@ -53,18 +58,30 @@ const Login = () => {
                     alignItems: 'center',
                 }}
             >
-                <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                    <PersonRoundedIcon />
+                <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
+                    <PersonRoundedIcon/>
                 </Avatar>
+                <Box sx={{pt: 2}}>
+                    <GoogleLogin
+                        onSuccess={(credentialResponse) => {
+                            if (credentialResponse.credential) {
+                                void googleLoginHandler(credentialResponse.credential);
+                            }
+                        }}
+                        onError={() => {
+                            console.log('Login Failed');
+                        }}
+                    />
+                </Box>
                 <Typography component="h1" variant="h5">
                     Sign In
                 </Typography>
                 {error && (
-                    <Alert severity="error" sx={{ mt: 3, width: '100%' }}>
+                    <Alert severity="error" sx={{mt: 3, width: '100%'}}>
                         {error.error}
                     </Alert>
                 )}
-                <Box component="form" onSubmit={submitFormHandler} sx={{ mt: 3 }}>
+                <Box component="form" onSubmit={submitFormHandler} sx={{mt: 3}}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <TextField
@@ -88,8 +105,8 @@ const Login = () => {
                             />
                         </Grid>
                     </Grid>
-                    <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-                        {loading ? <CircularProgress style={{ color: '#fafafa' }} size={24} /> : 'Sign Up'}
+                    <Button type="submit" fullWidth variant="contained" sx={{mt: 3, mb: 2}}>
+                        {loading ? <CircularProgress style={{color: '#fafafa'}} size={24}/> : 'Sign Up'}
                     </Button>
                     <Grid container justifyContent="flex-end">
                         <Grid item>

@@ -24,7 +24,14 @@ const UserMenu: React.FC<Props> = ({ user }) => {
         dispatch(logout());
     };
 
-    let avatarImage = 'http://localhost:8000' + '/images/' + user.avatar;
+    let avatarImage = '';
+    if (user.avatar) {
+        if (user.avatar.startsWith('https:')) {
+            avatarImage = user.avatar;
+        } else {
+            avatarImage = 'http://localhost:8000' + '/images/' + user.avatar;
+        }
+    }
 
     return (
         <>

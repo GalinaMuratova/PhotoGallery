@@ -48,7 +48,7 @@ const UserSchema = new Schema<IUser, UserModel, IUserMethods>({
         default: 'user',
         enum: ['user', 'admin'],
     },
-    googleId: String,
+    googleID: String,
     avatar: {
         type: String,
         required: true

@@ -16,7 +16,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import FileInput from '../../components/UI/FileInput/FileInput';
 import {selectRegisterError, selectRegisterLoading} from "./userSlice";
-import {login, register} from "./userThunk";
+import {googleLogin, login, register} from "./userThunk";
+import {GoogleLogin} from "@react-oauth/google";
 
 const Register = () => {
     const [state, setState] = useState<RegisterMutation>({
@@ -67,6 +68,11 @@ const Register = () => {
             }));
         }
     };
+
+    const googleLoginHandler = async (credential: string) => {
+        await dispatch(googleLogin(credential)).unwrap();
+        navigate('/');
+    };
     return (
         <Container component="main" maxWidth="xs">
             <Box
@@ -80,6 +86,18 @@ const Register = () => {
                 <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                     <LockOutlinedIcon />
                 </Avatar>
+                <Box sx={{pt: 2}}>
+                    <GoogleLogin
+                        onSuccess={(credentialResponse) => {
+                            if (credentialResponse.credential) {
+                                void googleLoginHandler(credentialResponse.credential);
+                            }
+                        }}
+                        onError={() => {
+                            console.log('Login Failed');
+                        }}
+                    />
+                </Box>
                 <Typography component="h1" variant="h5">
                     Sign up
                 </Typography>
