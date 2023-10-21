@@ -1,6 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { PhotoMutation } from '../../types';
+import { Photo, PhotoMutation } from '../../types';
 import axiosApi from '../../axiosApi';
+
+export const fetchAllPhotos = createAsyncThunk<Photo[]>('photos/fetchAll', async () => {
+  const photosResponse = await axiosApi.get<Photo[]>('/photos');
+  return photosResponse.data;
+});
 
 export const createPhoto = createAsyncThunk<void, PhotoMutation>(
   'photos/create',
