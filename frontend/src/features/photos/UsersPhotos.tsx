@@ -29,7 +29,7 @@ const UsersPhotos = () => {
         justifyContent="space-between"
         style={{ margin: '20px 0' }}
       >
-        <Typography variant="h4">My cocktails</Typography>
+        <Typography variant="h4">My photography</Typography>
         <Button variant="contained" color="success" component={Link} to="/photos/new">
           Add photo
         </Button>

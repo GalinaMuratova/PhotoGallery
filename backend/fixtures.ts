@@ -49,6 +49,15 @@ const run = async () => {
         image: 'istanbul.jpg'
 
     }, {
+        user: user1._id,
+        title: 'The largest aquarium',
+        image: 'aquarium.JPG'
+
+    }, {
+        user: user1._id,
+        title: 'Fish',
+        image: 'fish.JPG'
+    }, {
         user: user2._id,
         title: 'Nursing home in America',
         image: 'nursinghome.jpg'
@@ -63,7 +72,25 @@ const run = async () => {
         title: 'Sunset at Issyk Kul',
         image: 'Sunset.jpg'
 
-    })
-    await db.close();
-};
+    }, {
+        user: user2._id,
+        title: 'Preserves and teas',
+        image: 'shop.JPG'
+
+    }, {
+        user: user2._id,
+        title: 'Mountains',
+        image: 'mountains.JPG'
+
+    }, {
+        user: user2._id,
+        title: 'Flowers',
+        image: 'flowers.JPG'
+
+    }
+
+)
+await db.close();
+}
+;
 run().catch(console.error);
