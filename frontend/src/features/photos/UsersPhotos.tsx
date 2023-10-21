@@ -30,7 +30,7 @@ const UsersPhotos = () => {
         style={{ margin: '20px 0' }}
       >
         <Typography variant="h4">My cocktails</Typography>
-        <Button variant="outlined" component={Link} to="/photos/new">
+        <Button variant="contained" color="success" component={Link} to="/photos/new">
           Add photo
         </Button>
       </Grid>

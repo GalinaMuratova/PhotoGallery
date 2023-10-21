@@ -18,7 +18,7 @@ const Link = styled(NavLink)({
 const AppToolbar = () => {
   const user = useAppSelector(selectUser);
   return (
-    <AppBar position="sticky" sx={{ mb: 2 }}>
+    <AppBar position="sticky" color="success" sx={{ mb: 2 }}>
       <Toolbar>
         <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
           <PhotoLibraryIcon />

@@ -65,6 +65,7 @@ const AddPhotoForm = () => {
             <LoadingButton
               type="submit"
               size="small"
+              color="success"
               endIcon={<SendIcon />}
               loading={loading}
               loadingPosition="end"

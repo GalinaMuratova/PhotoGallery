@@ -23,6 +23,7 @@ export interface Photo {
   user: {
     _id: string;
     displayName: string;
+    role: string;
   };
   _id: string;
   title: string;

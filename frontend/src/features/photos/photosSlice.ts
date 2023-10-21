@@ -1,6 +1,6 @@
 import { Photo } from '../../types';
 import { createSlice } from '@reduxjs/toolkit';
-import { createPhoto, fetchAllPhotos, fetchUsersPhotos } from './photosThunk';
+import { createPhoto, deleteOnePhoto, fetchAllPhotos, fetchUsersPhotos } from './photosThunk';
 import { RootState } from '../../app/store';
 
 interface PhotosState {
@@ -54,6 +54,15 @@ export const photosSlice = createSlice({
     });
     builder.addCase(createPhoto.rejected, (state) => {
       state.createLoading = false;
+    });
+    builder.addCase(deleteOnePhoto.pending, (state) => {
+      state.deleteLoading = true;
+    });
+    builder.addCase(deleteOnePhoto.fulfilled, (state) => {
+      state.deleteLoading = false;
+    });
+    builder.addCase(deleteOnePhoto.rejected, (state) => {
+      state.deleteLoading = false;
     });
   },
 });

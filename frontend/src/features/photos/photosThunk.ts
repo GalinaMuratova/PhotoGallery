@@ -29,3 +29,7 @@ export const createPhoto = createAsyncThunk<void, PhotoMutation>(
     await axiosApi.post('/photos', formData);
   },
 );
+
+export const deleteOnePhoto = createAsyncThunk<void, string>('photos/delete', async (id) => {
+  await axiosApi.delete(`/photos/${id}`);
+});

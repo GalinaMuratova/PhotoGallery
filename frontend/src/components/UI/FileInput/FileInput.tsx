@@ -40,7 +40,7 @@ const FileInput: React.FC<Props> = ({ name, label, onChange }) => {
           <TextField required value={fileName} label={label} disabled />
         </Grid>
         <Grid item>
-          <Button variant="contained" onClick={activateInput}>
+          <Button color="success" variant="contained" onClick={activateInput}>
             Browse
           </Button>
         </Grid>

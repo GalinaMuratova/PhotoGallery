@@ -58,9 +58,12 @@ const Login = () => {
           alignItems: 'center',
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+        <Avatar sx={{ m: 1, bgcolor: '#1769aa' }}>
           <PersonRoundedIcon />
         </Avatar>
+        <Typography component="h1" variant="h5">
+          Sign In
+        </Typography>
         <Box sx={{ pt: 2 }}>
           <GoogleLogin
             onSuccess={(credentialResponse) => {
@@ -73,9 +76,6 @@ const Login = () => {
             }}
           />
         </Box>
-        <Typography component="h1" variant="h5">
-          Sign In
-        </Typography>
         {error && (
           <Alert severity="error" sx={{ mt: 3, width: '100%' }}>
             {error.error}
@@ -105,7 +105,7 @@ const Login = () => {
               />
             </Grid>
           </Grid>
-          <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+          <Button type="submit" fullWidth color="success" variant="contained" sx={{ mt: 3, mb: 2 }}>
             {loading ? <CircularProgress style={{ color: '#fafafa' }} size={24} /> : 'Sign Up'}
           </Button>
           <Grid container justifyContent="flex-end">

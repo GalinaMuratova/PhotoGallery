@@ -79,15 +79,18 @@ const Register = () => {
     <Container component="main" maxWidth="xs">
       <Box
         sx={{
-          marginTop: 8,
+          marginTop: 2,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+        <Avatar sx={{ m: 1, bgcolor: '#1769aa' }}>
           <LockOutlinedIcon />
         </Avatar>
+        <Typography component="h1" variant="h5">
+          Sign up
+        </Typography>
         <Box sx={{ pt: 2 }}>
           <GoogleLogin
             onSuccess={(credentialResponse) => {
@@ -100,9 +103,6 @@ const Register = () => {
             }}
           />
         </Box>
-        <Typography component="h1" variant="h5">
-          Sign up
-        </Typography>
         <Box component="form" noValidate onSubmit={submitFormHandler} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -149,6 +149,7 @@ const Register = () => {
           <Button
             type="submit"
             fullWidth
+            color="success"
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
             disabled={loading}
