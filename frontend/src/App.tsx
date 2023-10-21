@@ -21,7 +21,7 @@ function App() {
             <Route path="/" element={<Photos />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/my_photos" element={<UsersPhotos />} />
+            <Route path="/photos/:id" element={<UsersPhotos />} />
             <Route path="/photos/new" element={<NewPhotos />} />
           </Routes>
         </Container>

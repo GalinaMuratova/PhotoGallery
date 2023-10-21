@@ -1,18 +1,22 @@
 import { Photo } from '../../types';
 import { createSlice } from '@reduxjs/toolkit';
-import { createPhoto, fetchAllPhotos } from './photosThunk';
+import { createPhoto, fetchAllPhotos, fetchUsersPhotos } from './photosThunk';
 import { RootState } from '../../app/store';
 
 interface PhotosState {
   items: Photo[];
+  usersItems: Photo[];
   fetchAllLoading: boolean;
+  fetchUsersAllLoading: boolean;
   createLoading: boolean;
   deleteLoading: boolean;
 }
 
 const initialState: PhotosState = {
   items: [],
+  usersItems: [],
   fetchAllLoading: false,
+  fetchUsersAllLoading: false,
   createLoading: false,
   deleteLoading: false,
 };
@@ -32,6 +36,16 @@ export const photosSlice = createSlice({
     builder.addCase(fetchAllPhotos.rejected, (state) => {
       state.fetchAllLoading = false;
     });
+    builder.addCase(fetchUsersPhotos.pending, (state) => {
+      state.fetchUsersAllLoading = true;
+    });
+    builder.addCase(fetchUsersPhotos.fulfilled, (state, { payload: photos }) => {
+      state.fetchUsersAllLoading = false;
+      state.usersItems = photos;
+    });
+    builder.addCase(fetchUsersPhotos.rejected, (state) => {
+      state.fetchUsersAllLoading = false;
+    });
     builder.addCase(createPhoto.pending, (state) => {
       state.createLoading = true;
     });
@@ -48,3 +62,6 @@ export const photosReducer = photosSlice.reducer;
 export const selectCreatePhotoLoading = (state: RootState) => state.photosReducer.createLoading;
 export const selectAllPhotos = (state: RootState) => state.photosReducer.items;
 export const selectLoadingAllPhotos = (state: RootState) => state.photosReducer.fetchAllLoading;
+export const selectAllUsersPhotos = (state: RootState) => state.photosReducer.usersItems;
+export const selectLoadingAllUsersPhotos = (state: RootState) =>
+  state.photosReducer.fetchUsersAllLoading;

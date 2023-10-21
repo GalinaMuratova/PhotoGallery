@@ -9,6 +9,7 @@ import { logout } from '../../../features/users/userThunk';
 interface Props {
   user: User;
 }
+
 const UserMenu: React.FC<Props> = ({ user }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const dispatch = useAppDispatch();
@@ -52,7 +53,7 @@ const UserMenu: React.FC<Props> = ({ user }) => {
 
       <Menu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
         <MenuItem>Profile</MenuItem>
-        <MenuItem component={Link} to="/my_photos">
+        <MenuItem component={Link} to={'/photos/' + user._id}>
           My photos
         </MenuItem>
         <MenuItem onClick={handleLogout}>
