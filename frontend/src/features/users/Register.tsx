@@ -47,7 +47,7 @@ const Register = () => {
           password: state.password,
         }),
       );
-      navigate('/login');
+      navigate('/');
     } catch (e) {
       // error
     }

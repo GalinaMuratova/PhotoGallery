@@ -2,6 +2,7 @@ import express from "express";
 import auth, {RequestWithUser} from "../middleware/auth";
 import {imagesUpload} from "../multer";
 import Photo from "../models/Photo";
+import mongoose from "mongoose";
 
 const photosRouter = express.Router();
 
@@ -19,19 +20,7 @@ photosRouter.get('/', async (req, res) => {
    }
 })
 
-photosRouter.get('/:id', async (req, res) => {
-   try {
-       const photo = await Photo.findById(req.params.id);
-       if (!photo) {
-           return res.sendStatus(404);
-       }
-       return res.send(photo);
-   } catch {
-       return res.sendStatus(500);
-   }
-});
-
-photosRouter.post('/', auth, imagesUpload.single('image'), async (req, res) => {
+photosRouter.post('/', auth, imagesUpload.single('image'), async (req, res, next) => {
     const user = (req as RequestWithUser).user;
     try {
         const photo = new Photo ({
@@ -42,7 +31,10 @@ photosRouter.post('/', auth, imagesUpload.single('image'), async (req, res) => {
         await photo.save();
         res.send(photo);
     } catch (e) {
-        res.status(500).send({ error: 'Internal Server Error' });
+        if (e instanceof mongoose.Error.ValidationError) {
+            return res.status(400).send(e);
+        }
+        return next(e);
     }
 });
 
@@ -54,8 +46,6 @@ photosRouter.delete('/:id', auth, async (req, res, next) => {
         if (!photo) {
             return res.sendStatus(403);
         }
-        console.log(photo.user)
-        console.log(user._id)
 
         if (user.role !== 'admin' && String(user._id) !== String(photo.user)) {
             return res.status(403).send({ error: 'You are not authorized to delete this photo' });

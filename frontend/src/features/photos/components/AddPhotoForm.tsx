@@ -6,24 +6,34 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import FileInput from '../../../components/UI/FileInput/FileInput';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { useNavigate } from 'react-router-dom';
-import { selectCreatePhotoLoading } from '../photosSlice';
+import { selectCreateError, selectCreatePhotoLoading } from '../photosSlice';
 import { createPhoto } from '../photosThunk';
 
 const AddPhotoForm = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const loading = useAppSelector(selectCreatePhotoLoading);
+  const error = useAppSelector(selectCreateError);
   const [state, setState] = useState<PhotoMutation>({
     title: '',
     image: '',
   });
+
   const submitFormHandler = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       await dispatch(createPhoto(state)).unwrap();
       navigate('/');
     } catch (e) {
-      alert('Invalid field');
+      // error
+    }
+  };
+
+  const getFieldError = (fieldName: string) => {
+    try {
+      return error?.errors[fieldName].message;
+    } catch {
+      return undefined;
     }
   };
 
@@ -55,11 +65,18 @@ const AddPhotoForm = () => {
               value={state.title}
               onChange={inputChangeHandler}
               name="title"
-              required
+              error={Boolean(getFieldError('title'))}
+              helperText={getFieldError('title')}
             />
           </Grid>
           <Grid item xs>
-            <FileInput onChange={filesInputChangeHandler} name="image" label="image" />
+            <FileInput
+              onChange={filesInputChangeHandler}
+              name="image"
+              label="Image"
+              error={Boolean(getFieldError('image'))}
+              helperText={getFieldError('image')}
+            />
           </Grid>
           <Grid item xs>
             <LoadingButton
