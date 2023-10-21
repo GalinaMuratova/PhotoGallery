@@ -7,7 +7,7 @@ dotenv.config();
 const config = {
     rootPath,
     publicPath: path.join(rootPath, 'public'),
-    db: 'mongodb://localhost/cocktails',
+    db: 'mongodb://localhost/photos',
     google: {
         clientId: process.env.GOOGLE_CLIENT_ID,
     },
