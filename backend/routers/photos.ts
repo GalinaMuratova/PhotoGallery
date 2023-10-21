@@ -17,8 +17,7 @@ photosRouter.get('/', async (req, res) => {
    } catch {
        return res.sendStatus(500);
    }
-});
-
+})
 
 photosRouter.get('/:id', async (req, res) => {
    try {

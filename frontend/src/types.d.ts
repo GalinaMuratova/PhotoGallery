@@ -19,6 +19,21 @@ export interface User {
   displayName: string;
 }
 
+export interface Photo {
+  user: {
+    _id: string;
+    displayName: string;
+  };
+  _id: string;
+  title: string;
+  image: string;
+}
+
+export interface PhotoMutation {
+  title: string;
+  image: string;
+}
+
 export interface RegisterResponse {
   user: User;
   message: string;

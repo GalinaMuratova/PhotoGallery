@@ -49,14 +49,11 @@ const UserMenu: React.FC<Props> = ({ user }) => {
       <Button onClick={handleClick} color="inherit">
         Hello, {user.displayName}
       </Button>
-      <Button color="inherit" component={Link} to="/cocktails/new">
-        Add cocktail
-      </Button>
 
       <Menu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
         <MenuItem>Profile</MenuItem>
-        <MenuItem component={Link} to="/my_cocktails">
-          My cocktails
+        <MenuItem component={Link} to="/my_photos">
+          My photos
         </MenuItem>
         <MenuItem onClick={handleLogout}>
           {loading ? <CircularProgress size={24} /> : 'Logout'}

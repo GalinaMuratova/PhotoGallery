@@ -1,7 +1,7 @@
 import React from 'react';
 import { AppBar, Grid, styled, Toolbar, Typography } from '@mui/material';
 import { Link as NavLink } from 'react-router-dom';
-import LocalBarIcon from '@mui/icons-material/LocalBar';
+import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
 import { useAppSelector } from '../../../app/hooks';
 import { selectUser } from '../../../features/users/userSlice';
 import UserMenu from './UserMenu';
@@ -21,8 +21,8 @@ const AppToolbar = () => {
     <AppBar position="sticky" sx={{ mb: 2 }}>
       <Toolbar>
         <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
-          <LocalBarIcon />
-          <Link to="/">Cocktails</Link>
+          <PhotoLibraryIcon />
+          <Link to="/">Photo Gallery</Link>
         </Typography>
         <Grid item>{user ? <UserMenu user={user} /> : <AnonymousMenu />}</Grid>
       </Toolbar>
