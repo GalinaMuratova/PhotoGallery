@@ -87,9 +87,9 @@ const PhotoBlock: React.FC<Props> = ({ id, title, image, user, deletePhoto }) =>
         component={Link}
         to={'/photos/' + user._id}
         style={{
-          color: 'white',
+          color: 'black',
           padding: '5px',
-          backgroundColor: 'rgb(34 59 35 / 48%)',
+          backgroundColor: 'rgb(200 200 200 / 48%)',
           borderRadius: '8px',
         }}
       >
